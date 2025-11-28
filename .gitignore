@@ -87,3 +87,4 @@ docker-compose.override.yml
 .coverage
 htmlcov/
 .cache/
+.env
