@@ -1,4 +1,3 @@
-# app.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -6,14 +5,21 @@ import os
 from typing import Optional
 
 from langchain_google_genai import ChatGoogleGenerativeAI
+from fastapi.middleware.cors import CORSMiddleware   # ⬅️ ADD THIS
 
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
-if not API_KEY:
-    raise RuntimeError("GEMINI_API_KEY not found in environment. Put it in a .env file or export it.")
-
 app = FastAPI(title="Shoyeb-specific LLM API")
+
+# ⬅️ ADD THIS CORS BLOCK
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # during development allow all
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class AskRequest(BaseModel):
     question: str
