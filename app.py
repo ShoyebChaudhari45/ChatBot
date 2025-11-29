@@ -158,3 +158,6 @@ def ask(req: AskRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"LLM request failed: {repr(e)}")
+@app.get("/")
+def home():
+    return {"status": "API is running 🚀", "endpoint": "/ask"}
